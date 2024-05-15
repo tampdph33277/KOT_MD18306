@@ -24,7 +24,7 @@ fun main() {
         choice = scanner.nextInt()
         when (choice) {
             1 -> {
-                // Hiển thị danh sách cán bộ giáo viên
+
                 println("Danh sách cán bộ giáo viên:")
                 for (cbgv in listCBGV) {
                     println("Mã số giáo viên: ${cbgv.maSoGV}")
@@ -104,7 +104,7 @@ fun main() {
             }
         }
 
-        // Hỏi người dùng có muốn tiếp tục không
+
         println("Tiếp không? (c/k): ")
         s = scanner.nextLine()
         if (s.equals("k", ignoreCase = true)) {

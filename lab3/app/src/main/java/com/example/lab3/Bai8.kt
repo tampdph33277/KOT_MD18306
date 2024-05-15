@@ -76,7 +76,7 @@ fun main() {
                 print("Nhập số hiệu sách: ")
                 val soHieuSach = scanner.next()
 
-                scanner.nextLine() // Đọc kí tự newline từ lệnh trước
+                scanner.nextLine()
 
                 print("Nhập họ tên sinh viên: ")
                 val hoTen = scanner.nextLine()
@@ -84,7 +84,7 @@ fun main() {
                 print("Nhập tuổi sinh viên: ")
                 val tuoi = scanner.nextInt()
 
-                scanner.nextLine() // Đọc kí tự newline từ lệnh trước
+                scanner.nextLine()
 
                 print("Nhập lớp sinh viên: ")
                 val lop = scanner.nextLine()
@@ -103,11 +103,11 @@ fun main() {
                 thuVien.xoaTheMuon(maPhieuMuon)
             }
             3 -> {
-                // Hiển thị danh sách thẻ mượn
+
                 thuVien.hienThiDanhSachTheMuon()
             }
             4 -> {
-                // Thoát chương trình
+
                 println("Chương trình kết thúc.")
                 return
             }
