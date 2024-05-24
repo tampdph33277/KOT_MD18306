@@ -2,4 +2,6 @@
     <string name="app_name">Asm</string>
     <string name="title_activity_main2">MainActivity2</string>
     <string name="title_activity_home">Home</string>
+    <string name="title_activity_product">Product</string>
+    <string name="title_activity_favorite">Favorite</string>
 </resources>

@@ -13,21 +13,13 @@
         android:theme="@style/Theme.Asm"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivity"
+            android:name=".Product"
             android:exported="false"
           />
         <activity
-            android:name=".Login"
-            android:exported="false"
-           />
-        <activity
-            android:name=".Signup"
-            android:exported="false"
-            />
-        <activity
-            android:name=".Home"
+            android:name=".Boarding"
             android:exported="true"
-            android:label="@string/app_name"
+            android:label="@string/title_activity_product"
             android:theme="@style/Theme.Asm">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -35,6 +27,31 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".MainActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Login"
+            android:exported="false" />
+        <activity
+            android:name=".Signup"
+            android:exported="false" />
+        <activity
+            android:name=".Home"
+            android:exported="true"
+         />
+        <activity
+            android:name=".Favorite"
+            android:exported="true"
+            />
+        <activity
+            android:name=".Checkout"
+            android:exported="true"
+            />
+        <activity
+            android:name=".Cart"
+            android:exported="true"
+            />
     </application>
 
 </manifest>
