@@ -142,7 +142,7 @@ fun GreetingCart(navController: NavController) {
             // Nút Button được đặt cố định ở cuối màn hình
             Button(
                 onClick = {
-                    // Thêm hành động của bạn ở đây
+                   navController.navigate("checkout")
                 },
                 modifier = Modifier
                     .align(Alignment.CenterHorizontally)

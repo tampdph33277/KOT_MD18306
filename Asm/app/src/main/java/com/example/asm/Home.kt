@@ -6,6 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -86,7 +87,6 @@ var listProduct = mutableListOf(
                 "select the best match for your home.", 5.0f, R.drawable.image_product4
     ),
 )
-
 @Composable
 fun GetLayoutHome(navController: NavController) {
     val scrollSate = rememberScrollState()
@@ -102,7 +102,6 @@ fun GetLayoutHome(navController: NavController) {
         TypeProduct("Lamb", R.drawable.lamp2),
     )
 
-
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -116,7 +115,9 @@ fun GetLayoutHome(navController: NavController) {
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            IconButton(onClick = { /*TODO*/ }) {
+            IconButton(onClick = {
+
+            }) {
                 Icon(
                     painter = painterResource(id = R.drawable.search),
                     contentDescription = null,
@@ -140,17 +141,17 @@ fun GetLayoutHome(navController: NavController) {
                     textAlign = TextAlign.Center,
                     fontSize = 18.sp,
                     fontWeight = FontWeight(700)
-
                 )
             }
 
-            IconButton(onClick = {      navController.navigate("cart") }) {
+            IconButton(onClick = {
+                navController.navigate("cart")
+            }) {
                 Icon(
                     painter = painterResource(id = R.drawable.cart),
                     contentDescription = null,
                     modifier = Modifier.size(20.dp, 20.dp),
                     tint = Color(0xff808080)
-
                 )
             }
         }
@@ -158,9 +159,7 @@ fun GetLayoutHome(navController: NavController) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(
-                    top = 20.dp
-                )
+                .padding(top = 20.dp)
                 .horizontalScroll(scrollSate),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
@@ -183,7 +182,7 @@ fun GetLayoutHome(navController: NavController) {
                             )
                             .background(
                                 Color(
-                                    if (statusType === type.type) 0xff303030 else 0xffF5F5F5
+                                    if (statusType == type.type) 0xff303030 else 0xffF5F5F5
                                 ),
                                 shape = RoundedCornerShape(8.dp)
                             )
@@ -194,7 +193,7 @@ fun GetLayoutHome(navController: NavController) {
                             contentDescription = null,
                             modifier = Modifier.size(26.dp, 26.dp),
                             tint = Color(
-                                if (statusType === type.type) 0xffFFFFFF else 0xff909090
+                                if (statusType == type.type) 0xffFFFFFF else 0xff909090
                             )
                         )
                     }
@@ -215,23 +214,23 @@ fun GetLayoutHome(navController: NavController) {
         ) {
             LazyVerticalGrid(columns = GridCells.Fixed(2)) {
                 items(listProduct) { item ->
-                    ItemProduct(model = item)
+                    ItemProduct(model = item, onClick = {
+                        navController.navigate("product/${item.name}") // Điều hướng với tên sản phẩm
+                    })
                 }
             }
         }
-
-
     }
-
-
 }
 
+
 @Composable
-fun ItemProduct(model: Product) {
+fun ItemProduct(model: Product, onClick: () -> Unit) {
     Column(
         modifier = Modifier
             .fillMaxSize()
             .padding(end = 25.dp, bottom = 15.dp)
+            .clickable(onClick = onClick) // Sử dụng onClick lambda
     ) {
         Box(
             modifier = Modifier.fillMaxSize(),
@@ -246,7 +245,7 @@ fun ItemProduct(model: Product) {
                 contentScale = ContentScale.FillWidth,
             )
             IconButton(
-                onClick = { /*TODO*/ },
+                onClick = { /* handle cart add here if needed */ },
                 modifier = Modifier
                     .padding(10.dp)
                     .background(
@@ -264,7 +263,6 @@ fun ItemProduct(model: Product) {
             }
         }
 
-
         Text(
             text = model.name,
             modifier = Modifier.padding(top = 10.dp),
@@ -280,9 +278,9 @@ fun ItemProduct(model: Product) {
             color = Color(0xff303030),
             fontWeight = FontWeight(700)
         )
-
     }
 }
+
 
 @Preview(showBackground = true)
 @Composable

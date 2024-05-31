@@ -86,7 +86,7 @@ fun GreetingLayoutLogin(navController: NavController) {
         ) {
             Column(
                 modifier = Modifier.padding(
-                    top = 50.dp, start = 10.dp, bottom = 15.dp
+                    top = 10.dp, start = 10.dp, bottom = 15.dp
                 )
             ) {
                 Text(
@@ -94,21 +94,21 @@ fun GreetingLayoutLogin(navController: NavController) {
                     fontFamily = FontFamily.Serif,
                     color = Color(0xff909090),
                     fontWeight = FontWeight(500),
-                    fontSize = 35.sp
+                    fontSize = 30.sp
                 )
                 Text(
                     text = "WELCOME BACK",
                     fontFamily = FontFamily.Serif,
                     color = Color(0xff303030),
                     fontWeight = FontWeight(700),
-                    fontSize = 35.sp
+                    fontSize = 30.sp
                 )
 
             }
 
             Column(
                 modifier = Modifier
-                    .size(370.dp, 440.dp)
+                    .size(370.dp, 420.dp)
                     .shadow(
                         elevation = 3.dp,
                         shape = RoundedCornerShape(topEnd = 10.dp, bottomEnd = 10.dp)
@@ -151,7 +151,7 @@ fun GreetingLayoutLogin(navController: NavController) {
                             ),
                         )
                     }
-                    Spacer(modifier = Modifier.height(30.dp))
+                    Spacer(modifier = Modifier.height(20.dp))
                     Column {
                         Text(
                             text = "Password",

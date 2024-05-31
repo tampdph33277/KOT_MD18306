@@ -17,9 +17,9 @@
             android:exported="false"
           />
         <activity
-            android:name=".Boarding"
+            android:name=".MainActivity"
             android:exported="true"
-            android:label="@string/title_activity_product"
+            android:label="@string/app_name"
             android:theme="@style/Theme.Asm">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,7 +28,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".Boarding"
             android:exported="false" />
         <activity
             android:name=".Login"
@@ -46,6 +46,11 @@
             />
         <activity
             android:name=".Checkout"
+            android:exported="true"
+            />
+
+        <activity
+            android:name=".NotificationActivity"
             android:exported="true"
             />
         <activity

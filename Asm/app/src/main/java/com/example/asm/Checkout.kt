@@ -67,7 +67,9 @@ fun GreetingCheckout(navController: NavController) {
                 horizontalArrangement = Arrangement.Center
             ) {
                 IconButton(
-                    onClick = { /* Thêm hành động ở đây */ },
+                    onClick = {
+                        navController.popBackStack()
+                              },
                     modifier = Modifier
                         .weight(1f)
                         .padding(top = 8.dp, end = 8.dp)

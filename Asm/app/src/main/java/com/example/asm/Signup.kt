@@ -13,8 +13,10 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
@@ -53,34 +55,16 @@ class Signup : ComponentActivity() {
     }
 }
 
-
 @Composable
 fun GetLayoutSignUp(navController: NavController) {
-    var isShowPass by remember {
-        mutableStateOf(false)
-    }
-    var isShowConfirmPass by remember {
-        mutableStateOf(false)
-    }
-    var email by remember {
-        mutableStateOf("")
-    }
-    var name by remember {
-        mutableStateOf("")
-    }
-    var pass by remember {
-        mutableStateOf("")
-    }
-    var confirmpass by remember {
-        mutableStateOf("")
-    }
+    var isShowPass by remember { mutableStateOf(false) }
+    var isShowConfirmPass by remember { mutableStateOf(false) }
+    var email by remember { mutableStateOf("") }
+    var name by remember { mutableStateOf("") }
+    var pass by remember { mutableStateOf("") }
+    var confirmpass by remember { mutableStateOf("") }
 
-
-
-    Column(
-        modifier = Modifier.fillMaxSize()
-    ) {
-
+    Column(modifier = Modifier.fillMaxSize()) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
@@ -88,28 +72,26 @@ fun GetLayoutSignUp(navController: NavController) {
         ) {
             TitleCompose()
         }
-        Column(
-            modifier = Modifier.fillMaxSize(),
-        ) {
-            Column(
-                modifier = Modifier.padding(
-                    top = 20.dp, start = 10.dp, bottom = 15.dp
-                )
-            ) {
 
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .verticalScroll(rememberScrollState()) // Thêm cuộn ở đây
+                .padding(start = 10.dp, end = 10.dp, top = 20.dp)
+        ) {
+            Column(modifier = Modifier.padding(bottom = 15.dp)) {
                 Text(
                     text = "WELCOME",
                     fontFamily = FontFamily.Serif,
                     color = Color(0xff303030),
                     fontWeight = FontWeight(700),
-                    fontSize = 35.sp
+                    fontSize = 30.sp
                 )
-
             }
 
             Column(
                 modifier = Modifier
-                    .size(370.dp, 580.dp)
+                    .fillMaxWidth()
                     .shadow(
                         elevation = 3.dp,
                         shape = RoundedCornerShape(topEnd = 10.dp, bottomEnd = 10.dp)
@@ -118,209 +100,173 @@ fun GetLayoutSignUp(navController: NavController) {
                         Color.White,
                         shape = RoundedCornerShape(topEnd = 10.dp, bottomEnd = 10.dp)
                     )
+                    .padding(start = 20.dp, end = 20.dp, top = 30.dp, bottom = 30.dp)
             ) {
-                Column(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(
-                            start = 20.dp, end = 20.dp, top = 30.dp, bottom = 30.dp
-                        )
-                ) {
-                    Column {
-                        Text(
-                            text = "Name",
-                            color = Color(0xff909090),
-                            fontSize = 15.sp,
-                            fontFamily = FontFamily.Serif,
-                            modifier = Modifier.padding(bottom = 3.dp)
-                        )
-                        TextField(
-                            value = name,
-                            onValueChange = {
-                                name = it
-                            },
-                            modifier = Modifier.fillMaxWidth(),
-                            colors = TextFieldDefaults.colors(
-                                focusedContainerColor = Color.Transparent,
-                                unfocusedContainerColor = Color.Transparent,
-                                unfocusedIndicatorColor = Color(0xffE0E0E0),
-                                focusedIndicatorColor = Color(0xffE0E0E0),
-                                cursorColor = Color.Black
-                            ),
-                            textStyle = TextStyle(
-                                fontFamily = FontFamily.Serif
-                            ),
-
-                            )
-                    }
-                    Spacer(modifier = Modifier.height(20.dp))
-                    Column {
-                        Text(
-                            text = "Email",
-                            color = Color(0xff909090),
-                            fontSize = 15.sp,
-                            fontFamily = FontFamily.Serif,
-                            modifier = Modifier.padding(bottom = 3.dp)
-                        )
-                        TextField(
-                            value = email,
-                            onValueChange = {
-                                email = it
-                            },
-                            modifier = Modifier.fillMaxWidth(),
-                            colors = TextFieldDefaults.colors(
-                                focusedContainerColor = Color.Transparent,
-                                unfocusedContainerColor = Color.Transparent,
-                                unfocusedIndicatorColor = Color(0xffE0E0E0),
-                                focusedIndicatorColor = Color(0xffE0E0E0),
-                                cursorColor = Color.Black
-                            ),
-                            textStyle = TextStyle(
-                                fontFamily = FontFamily.Serif
-                            ),
-
-                            )
-                    }
-                    Spacer(modifier = Modifier.height(20.dp))
-                    Column {
-                        Text(
-                            text = "Password",
-                            color = Color(0xff909090),
-                            fontSize = 15.sp,
-                            fontFamily = FontFamily.Serif,
-                            modifier = Modifier.padding(bottom = 3.dp)
-                        )
-                        TextField(
-                            value = pass,
-                            onValueChange = {
-                                pass = it
-                            },
-                            modifier = Modifier.fillMaxWidth(),
-                            colors = TextFieldDefaults.colors(
-                                focusedContainerColor = Color.Transparent,
-                                unfocusedContainerColor = Color.Transparent,
-                                unfocusedIndicatorColor = Color(0xffE0E0E0),
-                                focusedIndicatorColor = Color(0xffE0E0E0),
-                                cursorColor = Color.Black
-                            ),
-                            trailingIcon = {
-                                IconButton(onClick = {
-                                    isShowPass = !isShowPass
-                                }) {
-                                    Icon(
-                                        painter = painterResource(
-                                            id = if (isShowPass) R.drawable.an else R.drawable.show
-                                        ),
-                                        contentDescription = null,
-                                        modifier = Modifier.size(20.dp, 20.dp)
-                                    )
-                                }
-                            },
-                            visualTransformation = if (isShowPass) VisualTransformation.None else PasswordVisualTransformation(),
-                            textStyle = TextStyle(
-                                fontFamily = FontFamily.Serif
-                            ),
-                        )
-                    }
-                    Spacer(modifier = Modifier.height(20.dp))
-                    Column {
-                        Text(
-                            text = "Confirm Password",
-                            color = Color(0xff909090),
-                            fontSize = 15.sp,
-                            fontFamily = FontFamily.Serif,
-                            modifier = Modifier.padding(bottom = 3.dp)
-                        )
-                        TextField(
-                            value = confirmpass,
-                            onValueChange = {
-                                confirmpass = it
-                            },
-                            modifier = Modifier.fillMaxWidth(),
-                            colors = TextFieldDefaults.colors(
-                                focusedContainerColor = Color.Transparent,
-                                unfocusedContainerColor = Color.Transparent,
-                                unfocusedIndicatorColor = Color(0xffE0E0E0),
-                                focusedIndicatorColor = Color(0xffE0E0E0),
-                                cursorColor = Color.Black
-                            ),
-                            trailingIcon = {
-                                IconButton(onClick = {
-                                    isShowConfirmPass = !isShowConfirmPass
-                                }) {
-                                    Icon(
-                                        painter = painterResource(
-                                            id = if (isShowConfirmPass) R.drawable.an
-                                            else R.drawable.show
-                                        ),
-                                        contentDescription = null,
-                                        modifier = Modifier.size(20.dp, 20.dp)
-                                    )
-                                }
-                            },
-                            visualTransformation = if (isShowConfirmPass) VisualTransformation.None else PasswordVisualTransformation(),
-                            textStyle = TextStyle(
-                                fontFamily = FontFamily.Serif
-                            ),
-                        )
-                    }
-                    Spacer(modifier = Modifier.height(15.dp))
-
-                    Column(
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .padding(top = 15.dp),
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                    ) {
-                        Button(
-                            onClick = { /*TODO*/ },
-                            modifier = Modifier.size(290.dp, 50.dp),
-                            colors = ButtonDefaults.buttonColors(
-                                containerColor = Color(0xff242424)
-                            ),
-                            shape = RoundedCornerShape(8.dp)
-
-                        ) {
-                            Text(
-                                text = "Sign up",
-                                fontFamily = FontFamily.Serif,
-                                fontWeight = FontWeight(600)
-                            )
-                        }
-                        Row {
-                            Text(
-                                text = "Already have account?",
-                                modifier = Modifier.padding(top = 20.dp),
-                                fontSize = 14.sp,
-                                fontFamily = FontFamily.Serif,
-                                color = Color(0xff909090)
-                            )
-                            Text(
-                                text = "LOGIN",
-                                modifier = Modifier
-                                    .padding(top = 20.dp, start = 5.dp)
-                                    .selectable(
-                                        selected = true,
-                                        onClick = {
-                                            navController.navigate("login")
-
-                                        }
-                                    ),
-                                fontSize = 14.sp,
-                                fontFamily = FontFamily.Serif,
-                                color = Color(0xff303030),
-                                fontWeight = FontWeight.ExtraBold
-                            )
-                        }
-
-                    }
-
-
+                Column {
+                    Text(
+                        text = "Name",
+                        color = Color(0xff909090),
+                        fontSize = 15.sp,
+                        fontFamily = FontFamily.Serif,
+                        modifier = Modifier.padding(bottom = 3.dp)
+                    )
+                    TextField(
+                        value = name,
+                        onValueChange = { name = it },
+                        modifier = Modifier.fillMaxWidth(),
+                        colors = TextFieldDefaults.colors(
+                            focusedContainerColor = Color.Transparent,
+                            unfocusedContainerColor = Color.Transparent,
+                            unfocusedIndicatorColor = Color(0xffE0E0E0),
+                            focusedIndicatorColor = Color(0xffE0E0E0),
+                            cursorColor = Color.Black
+                        ),
+                        textStyle = TextStyle(fontFamily = FontFamily.Serif)
+                    )
                 }
 
+                Spacer(modifier = Modifier.height(20.dp))
+
+                Column {
+                    Text(
+                        text = "Email",
+                        color = Color(0xff909090),
+                        fontSize = 15.sp,
+                        fontFamily = FontFamily.Serif,
+                        modifier = Modifier.padding(bottom = 3.dp)
+                    )
+                    TextField(
+                        value = email,
+                        onValueChange = { email = it },
+                        modifier = Modifier.fillMaxWidth(),
+                        colors = TextFieldDefaults.colors(
+                            focusedContainerColor = Color.Transparent,
+                            unfocusedContainerColor = Color.Transparent,
+                            unfocusedIndicatorColor = Color(0xffE0E0E0),
+                            focusedIndicatorColor = Color(0xffE0E0E0),
+                            cursorColor = Color.Black
+                        ),
+                        textStyle = TextStyle(fontFamily = FontFamily.Serif)
+                    )
+                }
+
+                Spacer(modifier = Modifier.height(20.dp))
+
+                Column {
+                    Text(
+                        text = "Password",
+                        color = Color(0xff909090),
+                        fontSize = 15.sp,
+                        fontFamily = FontFamily.Serif,
+                        modifier = Modifier.padding(bottom = 3.dp)
+                    )
+                    TextField(
+                        value = pass,
+                        onValueChange = { pass = it },
+                        modifier = Modifier.fillMaxWidth(),
+                        colors = TextFieldDefaults.colors(
+                            focusedContainerColor = Color.Transparent,
+                            unfocusedContainerColor = Color.Transparent,
+                            unfocusedIndicatorColor = Color(0xffE0E0E0),
+                            focusedIndicatorColor = Color(0xffE0E0E0),
+                            cursorColor = Color.Black
+                        ),
+                        trailingIcon = {
+                            IconButton(onClick = { isShowPass = !isShowPass }) {
+                                Icon(
+                                    painter = painterResource(
+                                        id = if (isShowPass) R.drawable.an else R.drawable.show
+                                    ),
+                                    contentDescription = null,
+                                    modifier = Modifier.size(20.dp, 20.dp)
+                                )
+                            }
+                        },
+                        visualTransformation = if (isShowPass) VisualTransformation.None else PasswordVisualTransformation(),
+                        textStyle = TextStyle(fontFamily = FontFamily.Serif)
+                    )
+                }
+
+                Spacer(modifier = Modifier.height(20.dp))
+
+                Column {
+                    Text(
+                        text = "Confirm Password",
+                        color = Color(0xff909090),
+                        fontSize = 15.sp,
+                        fontFamily = FontFamily.Serif,
+                        modifier = Modifier.padding(bottom = 3.dp)
+                    )
+                    TextField(
+                        value = confirmpass,
+                        onValueChange = { confirmpass = it },
+                        modifier = Modifier.fillMaxWidth(),
+                        colors = TextFieldDefaults.colors(
+                            focusedContainerColor = Color.Transparent,
+                            unfocusedContainerColor = Color.Transparent,
+                            unfocusedIndicatorColor = Color(0xffE0E0E0),
+                            focusedIndicatorColor = Color(0xffE0E0E0),
+                            cursorColor = Color.Black
+                        ),
+                        trailingIcon = {
+                            IconButton(onClick = { isShowConfirmPass = !isShowConfirmPass }) {
+                                Icon(
+                                    painter = painterResource(
+                                        id = if (isShowConfirmPass) R.drawable.an else R.drawable.show
+                                    ),
+                                    contentDescription = null,
+                                    modifier = Modifier.size(20.dp, 20.dp)
+                                )
+                            }
+                        },
+                        visualTransformation = if (isShowConfirmPass) VisualTransformation.None else PasswordVisualTransformation(),
+                        textStyle = TextStyle(fontFamily = FontFamily.Serif)
+                    )
+                }
+
+                Spacer(modifier = Modifier.height(15.dp))
+
+                Column(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Button(
+                        onClick = { /*TODO*/ },
+                        modifier = Modifier.size(290.dp, 50.dp),
+                        colors = ButtonDefaults.buttonColors(containerColor = Color(0xff242424)),
+                        shape = RoundedCornerShape(8.dp)
+                    ) {
+                        Text(
+                            text = "Sign up",
+                            fontFamily = FontFamily.Serif,
+                            fontWeight = FontWeight(600)
+                        )
+                    }
+                    Row {
+                        Text(
+                            text = "Already have account?",
+                            modifier = Modifier.padding(top = 20.dp),
+                            fontSize = 14.sp,
+                            fontFamily = FontFamily.Serif,
+                            color = Color(0xff909090)
+                        )
+                        Text(
+                            text = "LOGIN",
+                            modifier = Modifier
+                                .padding(top = 20.dp, start = 5.dp)
+                                .selectable(
+                                    selected = true,
+                                    onClick = { navController.navigate("login") }
+                                ),
+                            fontSize = 14.sp,
+                            fontFamily = FontFamily.Serif,
+                            color = Color(0xff303030),
+                            fontWeight = FontWeight.ExtraBold
+                        )
+                    }
+                }
             }
         }
-
     }
 }
 
@@ -328,5 +274,4 @@ fun GetLayoutSignUp(navController: NavController) {
 @Composable
 fun GreetingSignUp() {
     GetLayoutSignUp(NavController(context = LocalContext.current))
-
 }

@@ -7,6 +7,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -23,7 +24,9 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
@@ -51,216 +54,260 @@ class Produc : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            GreetinglayoutProduct(NavController(context = LocalContext.current))
+            val product = intent.getSerializableExtra("product") as? Product
+            if (product != null) {
+                ProductDetailScreen(navController = NavController(context = LocalContext.current), product = product)
+            } else {
+                // Handle error or show some default content
             }
         }
     }
-
+}
 
 @Composable
-fun GreetinglayoutProduct(navController: NavController) {
-    val scrollSate = rememberScrollState()
-    Column( modifier = Modifier
-        .fillMaxSize()
-
+fun ProductDetailScreen(navController: NavController, product: Product) {
+    val scrollState = rememberScrollState()
+    Column(
+        modifier = Modifier.fillMaxSize()
     ) {
         Box(
             modifier = Modifier
-                .fillMaxWidth(fraction = 1f)
-                .fillMaxHeight(fraction = 0.6f) //  Chiều cao box sẽ chiếm 70% chiều cao của parent
-                .border(width = 0.dp, color = Color.Transparent) // Bỏ viền border
+                .fillMaxWidth()
+                .fillMaxHeight(0.64f),
+            contentAlignment = Alignment.TopCenter
         ) {
             Image(
-                painter = painterResource(id = R.drawable.image_product2),
-                contentDescription = "",
+                painter = painterResource(id = product.img),
+                contentDescription = product.name,
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .fillMaxHeight()
-                    .offset(x = (50).dp, y = (0).dp)
+                    .padding(start = 49.dp)
+                    .fillMaxSize()
                     .shadow(
                         elevation = 1.dp,
-                        shape = RoundedCornerShape(
-                            bottomStart = 50.dp,
-                        )
+                        shape = RoundedCornerShape(bottomStart = 50.dp)
                     )
             )
 
+            IconButton(
+                onClick = {
+                    navController.popBackStack()
+                },
+                modifier = Modifier
+                    .padding(end = 260.dp, top = 20.dp)
+                    .shadow(
+                        elevation = 3.dp,
+                        shape = RoundedCornerShape(10.dp)
+                    )
+                    .size(40.dp)
+                    .background(
+                        color = Color.White,
+                        shape = RoundedCornerShape(10.dp)
+                    )
+            ) {
+                Icon(
+                    painter = painterResource(id = R.drawable.icon_back),
+                    contentDescription = null,
+                    modifier = Modifier.size(15.dp, 15.dp)
+                )
+            }
+
+            Column(
+                modifier = Modifier
+                    .padding(end = 260.dp, top = 120.dp)
+                    .shadow(
+                        elevation = 3.dp,
+                        shape = RoundedCornerShape(30.dp)
+                    )
+                    .background(color = Color.White, shape = RoundedCornerShape(10.dp))
+                    .padding(10.dp)
+            ) {
+                CustomRadioButton(
+                    selected = true,
+                    onClick = { /*TODO*/ },
+                    outerColor = Color.Gray,
+                    innerColor = Color.White
+                )
+                Spacer(modifier = Modifier.height(20.dp))
+                CustomRadioButton(
+                    selected = false,
+                    onClick = { /*TODO*/ },
+                    outerColor = Color(0xffF0F0F0),
+                    innerColor = Color(0xffB4916C)
+                )
+                Spacer(modifier = Modifier.height(20.dp))
+                CustomRadioButton(
+                    selected = false,
+                    onClick = { /*TODO*/ },
+                    outerColor = Color(0xffE4CBAD),
+                    innerColor = Color(0xffE4CBAD)
+                )
+            }
+        }
+
+        Box(
+            modifier = Modifier.fillMaxSize()
+        ) {
+            // Scrollable content
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(top = 40.dp)
-                    .offset(x = (25).dp, y = (0).dp)
+                    .verticalScroll(rememberScrollState())
+                    .padding(bottom = 80.dp) // Padding to ensure content is not hidden by the fixed buttons
             ) {
-                IconButton(
-                    onClick = {},
-                    modifier = Modifier
-                        .background(
-                            color = Color.Gray.copy(alpha = 0.2f),
-                            shape = RoundedCornerShape(10.dp)
-                )) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.left),
-                        contentDescription = null,
-                        modifier = Modifier.size(20.dp, 20.dp),
-
-                    )
-                }
-                Spacer(modifier = Modifier.height(90.dp))
                 Column(
                     modifier = Modifier
-                        .background(
-                            color = Color.Gray.copy(alpha = 0.2f),
-                            shape = RoundedCornerShape(30.dp))
-                ) {
-                    IconButton(onClick = {  }) {
-                        Icon(
-                            painter = painterResource(id = R.drawable.co1),
-                            contentDescription = null,
-                            modifier = Modifier.size(20.dp, 20.dp),
-                            tint = Color(0xff70cbff)
-                        )
-                    }
-                    IconButton(onClick = {  }) {
-                        Icon(
-                            painter = painterResource(id = R.drawable.co2),
-                            contentDescription = null,
-                            modifier = Modifier.size(20.dp, 20.dp),
-                            tint = Color(0xffE4CBAD)
-                        )
-                    }
-                    IconButton(onClick = {  }) {
-                        Icon(
-                            painter = painterResource(id = R.drawable.co3),
-                            contentDescription = null,
-                            modifier = Modifier.size(20.dp, 20.dp),
-                            tint = Color(0xffcb70dd)
-                        )
-                }}
-            }
-
-        }
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .fillMaxHeight(fraction = 0.5f)
-        ){
-            Column(
-                modifier = Modifier
-                    .padding(10.dp),
-                verticalArrangement = Arrangement.Center
-            ) {
-                Text(
-                    text = "Minimal Stand",
-                    fontFamily = FontFamily.Serif,
-                    color = Color(0xff606060),
-                    fontSize = 24.sp,
-                    fontWeight = FontWeight(600)
-                )
-                Spacer(modifier = Modifier.height(10.dp))
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth(),
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.SpaceBetween
+                        .fillMaxWidth()
+                        .padding(16.dp)
                 ) {
                     Text(
-                        text = "$ 50",
+                        text = product.name,
                         fontFamily = FontFamily.Serif,
                         color = Color(0xff606060),
                         fontSize = 24.sp,
-                        fontWeight = FontWeight(600)
+                        fontWeight = FontWeight.Bold
                     )
-                    SoluogCompose()
-                }
-                Spacer(modifier = Modifier.height(10.dp))
-               Row(
-                   modifier = Modifier
-                       .fillMaxWidth(),
-                           verticalAlignment = Alignment.CenterVertically,
-                   horizontalArrangement = Arrangement.Start
 
-               ) {
-                   Icon(
-                       painter = painterResource(id = R.drawable.popular),
-                       contentDescription = null,
-                       modifier = Modifier.size(20.dp, 20.dp),
-                       tint = Color(0xffF2C94C)
-                   )
-                   Text(
-                       text = "4.5 ",
-                       fontFamily = FontFamily.Serif,
-                       color = Color(0xff606060),
-                       fontSize = 20.sp,
-                       fontWeight = FontWeight(600)
-                   )
-                   Text(
-                       text = " (50 reviews)",
-                       fontFamily = FontFamily.Serif,
-                       color = Color(0xff606060),
-                       fontSize = 15.sp,
-                       fontWeight = FontWeight(600)
-                   )
-               }
-                Text(
-                    text = "Minimal Stand is made of by natural wood. The design that is very simple and minimal. This is truly one of the best furnitures in any family for now. With 3 different colors, you can easily select the best match for your home. ",
-                    fontFamily = FontFamily.Serif,
-                    color = Color(0xff606060),
-                    fontSize = 15.sp,
-                    fontWeight = FontWeight(200)
-                )
-                Spacer(modifier = Modifier.height(10.dp))
-                Row(
-                    modifier = Modifier
-                        .padding(start = 10.dp, end = 10.dp)
-                        .fillMaxWidth(),
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.SpaceBetween
-                ) {
-                    IconButton(
-                        onClick = {},
+                    Spacer(modifier = Modifier.height(5.dp))
+
+                    Row(
                         modifier = Modifier
-                            .size(60.dp, 60.dp) // Thiết lập kích thước IconButton
-                            .background(
-                                color = Color.Gray.copy(alpha = 0.2f),
-                                shape = RoundedCornerShape(10.dp)
-                            )) {
-                        Icon(
-                            painter = painterResource(id = R.drawable.marker),
-                            contentDescription = null,
-                            modifier = Modifier.size(20.dp, 20.dp),
-
-                            )
-                    }
-
-                    Button(
-                        onClick = {
-                            navController.navigate("cart")
-                        },
-                        modifier = Modifier.size(270.dp, 60.dp),
-                        colors = ButtonDefaults.buttonColors(
-                            containerColor = Color(0xff242424)
-                        ),
-                        shape = RoundedCornerShape(8.dp)
-
+                            .fillMaxWidth(),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.SpaceBetween
                     ) {
                         Text(
-                            text = "Add to cart",
+                            text = "$ ${product.price}",
                             fontFamily = FontFamily.Serif,
-                                    fontWeight = FontWeight(500),
-                            fontSize = 20.sp,
+                            color = Color(0xff606060),
+                            fontSize = 24.sp,
+                            fontWeight = FontWeight(600)
+                        )
+                        SoluogCompose()
+                    }
+
+                    Spacer(modifier = Modifier.height(5.dp))
+
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Icon(
+                            painter = painterResource(id = R.drawable.popular),
+                            contentDescription = null,
+                            modifier = Modifier.size(20.dp),
+                            tint = Color(0xffF2C94C)
+                        )
+                        Spacer(modifier = Modifier.width(4.dp))
+                        Text(
+                            text = "4.5 (50 reviews)",
+                            fontFamily = FontFamily.Serif,
+                            color = Color(0xff606060),
+                            fontSize = 16.sp,
+                            fontWeight = FontWeight.Medium
                         )
                     }
 
+                    Spacer(modifier = Modifier.height(8.dp))
+
+                    Text(
+                        text = product.description,
+                        fontFamily = FontFamily.Serif,
+                        color = Color(0xff606060),
+                        fontSize = 16.sp
+                    )
+                }
+            }
+
+            // Fixed buttons
+            Row(
+                modifier = Modifier
+                    .align(Alignment.BottomCenter)
+                    .fillMaxWidth()
+                    .background(Color.White)
+                    .padding(16.dp),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                IconButton(
+                    onClick = { /*TODO*/ },
+                    modifier = Modifier
+                        .size(50.dp)
+                        .background(
+                            color = Color.Gray.copy(alpha = 0.2f),
+                            shape = RoundedCornerShape(10.dp)
+                        )
+                ) {
+                    Icon(
+                        painter = painterResource(id = R.drawable.marker),
+                        contentDescription = null,
+                        modifier = Modifier.size(20.dp)
+                    )
                 }
 
+                Button(
+                    onClick = {
+                        navController.navigate("cart")
+                    },
+                    modifier = Modifier
+                        .fillMaxWidth(0.8f)
+                        .height(50.dp),
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = Color(0xff242424)
+                    ),
+                    shape = RoundedCornerShape(8.dp)
+                ) {
+                    Text(
+                        text = "Add to cart",
+                        fontFamily = FontFamily.Serif,
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 18.sp,
+                        color = Color.White
+                    )
+                }
             }
         }
-
     }
 }
 
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreviewProduct() {
-    GreetinglayoutProduct(NavController(context = LocalContext.current))
+    // Fake product for preview
+    val product = Product(
+        name = "Minimal Stand",
+        price = 50.0f,
+        description = "Minimal Stand is made of by natural wood. The design that is very simple and minimal. This is truly one of the best furnitures in any family for now. With 3 different colors, you can easily select the best match for your home.",
+        quantityStart = 5.0f,
+        img = R.drawable.image_product2
+    )
+    ProductDetailScreen(navController = NavController(context = LocalContext.current), product = product)
+}
+
+@Composable
+fun CustomRadioButton(
+    selected: Boolean,
+    onClick: () -> Unit,
+    outerColor: Color,
+    innerColor: Color
+) {
+    Box(
+        modifier = Modifier
+            .size(24.dp)
+            .clickable(onClick = onClick),
+        contentAlignment = Alignment.Center
+    ) {
+        // Outer circle
+        Box(
+            modifier = Modifier
+                .size(20.dp)
+                .background(color = outerColor, shape = RoundedCornerShape(10.dp))
+        )
+        // Inner circle
+        if (selected) {
+            Box(
+                modifier = Modifier
+                    .size(15.dp)
+                    .background(color = innerColor, shape = CircleShape)
+            )
+        }
+    }
 }

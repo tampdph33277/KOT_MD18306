@@ -26,11 +26,20 @@ fun AppNavigation() {
         composable("boarding") { GetLayoutBoarding(navController) }
         composable("login") { GreetingLayoutLogin(navController) }
         composable("signup") { GetLayoutSignUp(navController) }
-        composable("home") { GetLayoutHome(navController) }
-        composable("product") { GreetinglayoutProduct(navController) }
+        composable("home") { GetLayoutHomeNavigation(navController) }
+        composable("product/{productName}") { backStackEntry ->
+            val productName = backStackEntry.arguments?.getString("productName")
+            // Tìm sản phẩm dựa trên tên sản phẩm
+            val product = listProduct.find { it.name == productName }
+            product?.let {
+                ProductDetailScreen(navController, it)
+            }
+        }
         composable("favorite") { GreetingFavorite(navController) }
         composable("cart") { GreetingCart(navController) }
         composable("checkout") { GreetingCheckout(navController) }
+        composable("notification") { GetLayoutNotification(navController) }
+
     }
 }
 

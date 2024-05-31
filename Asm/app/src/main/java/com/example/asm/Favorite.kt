@@ -92,7 +92,7 @@ fun GreetingFavorite(navController: NavController) {
                         modifier = Modifier.padding(horizontal = 20.dp)
                     )
                     IconButton(
-                        onClick = { /* Thêm hành động ở đây */ },
+                        onClick = {        navController.navigate("cart") },
                         modifier = Modifier
                             .weight(1f)
                             .padding(top = 8.dp, end = 8.dp)
