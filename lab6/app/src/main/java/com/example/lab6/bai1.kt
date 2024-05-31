@@ -18,10 +18,9 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-
+import coil.compose.AsyncImage
 import com.example.lab6.ui.theme.Lab6Theme
 import androidx.compose.ui.graphics.Color
-import coil.compose.AsyncImage
 
 class bai1 : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,28 +28,30 @@ class bai1 : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             Lab6Theme {
-                MovieScreen(Movie.getSampleMovies())
+                MovieScreen1(Movie_bai1.getSampleMovies())
             }
         }
     }
 }
 
-data class Movie(
+data class Movie_bai1(
     val title: String,
     val year: String,
     val posterUrl: String
 ) {
     companion object {
         fun getSampleMovies() = listOf(
-            Movie("Inception", "2010", "https://bazaarvietnam.vn/wp-content/uploads/2022/04/harper-bazaar-phim-cua-tran-thanh-10.jpeg"),
-            Movie("Interstellar", "2014", "https://via.placeholder.com/150"),
-            Movie("Dunkirk", "2017", "https://via.placeholder.com/150")
+            Movie_bai1("Mắt Biếc", "2019", "https://tse2.mm.bing.net/th?id=OIP.SDaqWnDlb2OLp4uMDjn5bAHaKl&pid=Api&P=0&h=180"),
+            Movie_bai1("Hành tinh cát - Phần 2", "2024",    "https://upload.wikimedia.org/wikipedia/vi/9/94/Dune_2_VN_poster.jpg",),
+            Movie_bai1(  "Kang Fu Panda 4", "2024",
+                "https://lh4.googleusercontent.com/proxy/0ANH87_RsjcPVN_BPzv_LHYVYwO44rC9-yozjnYZUF2iqF36uvUJgSStqQuTfmcYHgtToTu7vXdqirFhitZH_XP36KbyZ-_qgxI87CX_Md0sg0Lt",
+            )
         )
     }
 }
 
 @Composable
-fun MovieItem(movie: Movie) {
+fun MovieItem(movie: Movie_bai1) {
     Card(
         colors = CardDefaults.cardColors(containerColor = Color.White),
         elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
@@ -85,7 +86,7 @@ fun MovieItem(movie: Movie) {
 }
 
 @Composable
-fun MovieScreen(movies: List<Movie>) {
+fun MovieScreen1(movies: List<Movie_bai1>) {
     LazyRow(
         state = rememberLazyListState(),
         contentPadding = PaddingValues(horizontal = 8.dp, vertical = 16.dp),
@@ -101,6 +102,6 @@ fun MovieScreen(movies: List<Movie>) {
 @Composable
 fun GreetingPreviewbai1() {
     Lab6Theme {
-        MovieScreen(Movie.getSampleMovies())
+        MovieScreen1(Movie_bai1.getSampleMovies())
     }
 }

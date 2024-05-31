@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">lab6</string>
     <string name="title_activity_bai1">bai1</string>
+    <string name="title_activity_bai2">bai2</string>
+    <string name="title_activity_bai3">bai3</string>
+    <string name="title_activity_seat">seat</string>
 </resources>
