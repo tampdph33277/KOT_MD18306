@@ -21,11 +21,7 @@ class LoginViewModel : ViewModel() {
     fun login(userName: String, password: String, rememberMe: Boolean) {
         _isAuthenticated.value = userName == "admin" && password == "123"
 
-        //if (userName == "admin" && password == "123") {
-        //_isAuthenticated.value = true
-        //} else {
-        // _isAuthenticated.value = false
-        //}
+
     }
 
     fun resetAuthenticationState() {

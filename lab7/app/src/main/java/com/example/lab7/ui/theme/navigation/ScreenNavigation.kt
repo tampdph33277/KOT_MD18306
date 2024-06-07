@@ -14,8 +14,8 @@ import com.congntph34559.fpoly.lab7_kot104_ph34559_application.ui.screens.LoginS
 fun GetLayoutScreenNavigation() {
 
     val navController = rememberNavController()
-    val mainViewModel: MainViewModel = viewModel()
-    val moviesState = mainViewModel.movies.observeAsState(initial = emptyList())
+    val movieViewModel: MovieViewModel = viewModel()
+    val moviesState = movieViewModel.movies.observeAsState(initial = emptyList())
     NavHost(navController = navController, startDestination = ROUTE_SCREEN.login.name) {
         composable(ROUTE_SCREEN.login.name) { LoginScreen(navController) }
         composable(ROUTE_SCREEN.movie.name) {
